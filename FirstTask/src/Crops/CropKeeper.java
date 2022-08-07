@@ -1,9 +1,8 @@
 package Crops;
 
 public interface CropKeeper {
-    public void id();
-    public void name();
 
+     void howToStore(Crop c);
 
 
 }

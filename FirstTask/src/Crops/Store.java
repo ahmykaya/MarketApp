@@ -1,51 +1,103 @@
 package Crops;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
-public class Store {
+public class Store implements CropKeeper {
 
-    private String storeName;
-    private int storeID;
-    private int storeMaxCapacityArea;
-    private int storeKgPerSquareMeter;
+    private int ID;
+    private String name;
+    private int maxCapacityArea;
+    private int usedCapacityArea;
+    private int KGperSquareMeter=10;
+    ArrayList<Fruit> fruitList = new ArrayList<>();
 
-    public Store(String storeName, int storeID, int storeMaxCapacityArea, int storeKgPerSquareMeter) {
-        this.storeName = storeName;
-        this.storeID = storeID;
-        this.storeMaxCapacityArea = storeMaxCapacityArea;
-        this.storeKgPerSquareMeter = storeKgPerSquareMeter;
+    public Store(int ID, String name, int maxCapacityArea, int usedCapacityArea) {
+        this.ID = ID;
+        this.name = name;
+        this.maxCapacityArea = maxCapacityArea;
+        this.usedCapacityArea = usedCapacityArea;
     }
 
-    public String getStoreName() {
-        return storeName;
+    public int getID() {
+        return ID;
     }
 
-    public void setStoreName(String storeName) {
-        this.storeName = storeName;
+    public void setID(int ID) {
+        this.ID = ID;
     }
 
-    public int getStoreID() {
-        return storeID;
+    public String getName() {
+        return name;
     }
 
-    public void setStoreID(int storeID) {
-        this.storeID = storeID;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public int getStoreMaxCapacityArea() {
-        return storeMaxCapacityArea;
+    public int getMaxCapacityArea() {
+        return maxCapacityArea;
     }
 
-    public void setStoreMaxCapacityArea(int storeMaxCapacityArea) {
-        this.storeMaxCapacityArea = storeMaxCapacityArea;
+    public void setMaxCapacityArea(int maxCapacityArea) {
+        this.maxCapacityArea = maxCapacityArea;
     }
 
-    public int getStoreKgPerSquareMeter() {
-        return storeKgPerSquareMeter;
+    public int getUsedCapacityArea() {
+        return usedCapacityArea;
     }
 
-    public void setStoreKgPerSquareMeter(int storeKgPerSquareMeter) {
-        this.storeKgPerSquareMeter = storeKgPerSquareMeter;
+    public void setUsedCapacityArea(int usedCapacityArea) {
+        this.usedCapacityArea = usedCapacityArea;
+    }
+
+    public int getKGperSquareMeter() {
+        return KGperSquareMeter;
+    }
+
+    public void setKGperSquareMeter(int KGperSquareMeter) {
+        this.KGperSquareMeter = KGperSquareMeter;
+    }
+
+    public ArrayList<Fruit> getFruitList() {
+        return fruitList;
+    }
+
+    public void setFruitList(ArrayList<Fruit> fruitList) {
+        this.fruitList = fruitList;
+    }
+
+    public int availableCapacity(){
+        return this.maxCapacityArea-this.usedCapacityArea;
+    }
+
+    public boolean canBeStored(Fruit f){
+        if (f.getWeight()>this.KGperSquareMeter){
+            return false;
+        }else {
+            return true;
+        }
+    }
+
+    public void importCrop(Fruit f) throws Exception{
+        if (availableCapacity() >= f.getWeight()){
+            this.fruitList.add(f);
+        }else {
+            throw new Exception("CapacityNotEnoughException");
+        }
+    }
+
+    public void exportCrop(Fruit f) throws Exception{
+        if (this.fruitList.contains(f)){
+            this.fruitList.remove(f);
+        }else {
+            throw new Exception("FruitNotFoundException");
+        }
+
+
+    }
+
+    @Override
+    public void howToStore(Crop c) {
+
     }
 }

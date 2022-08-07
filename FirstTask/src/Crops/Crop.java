@@ -5,11 +5,17 @@ public abstract class Crop {
    private String name;
    private int weight;
    private String cultivatedSeason;
+   private String type;
+   private int IDcropKeeper;
 
-    public Crop(String name, int weight, String cultivatedSeason) {
+
+
+    public Crop(String name, int weight, String cultivatedSeason, String type,int IDcropKeeper) {
         this.name = name;
         this.weight = weight;
         this.cultivatedSeason = cultivatedSeason;
+        this.type=type;
+        this.IDcropKeeper=IDcropKeeper;
     }
 
     public String getName() {
@@ -35,5 +41,22 @@ public abstract class Crop {
     public void setCultivatedSeason(String cultivatedSeason) {
         this.cultivatedSeason = cultivatedSeason;
     }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public int getIDcropKeeper() {
+        return IDcropKeeper;
+    }
+
+    public void setIDcropKeeper(int IDcropKeeper) {
+        this.IDcropKeeper = IDcropKeeper;
+    }
+
 }
 

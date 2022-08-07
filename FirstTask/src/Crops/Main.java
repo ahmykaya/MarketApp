@@ -7,6 +7,54 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
 
+        Fruit redApple = new Fruit("RedApple",45,"winter","sweet",3,"fruit",1133);
+        Fruit orangeF = new Fruit("Orange",50,"autumn","sour",4,"fruit",5967);
+        Fruit kiwi = new Fruit("Kiwi",10,"autumn","sour",10,"fruit",1133);
+        Fruit greenAppleA = new Fruit("GreenApple",25,"winter","sweet",6,"fruit",1133);
+        Fruit orangeH = new Fruit("Orange",20,"autumn","sour",4,"fruit",1322);
+        Fruit greenAppleM = new Fruit("GreenApple",5,"winter","sweet",6,"fruit",5343);
+        Fruit banana = new Fruit("Banana",63,"summer","sweet",12,"fruit",5343);
+
+        Vegetable parsley = new Vegetable("Parsley",25,"Samsun","vegetable",1429);
+        Vegetable mint = new Vegetable("Mint",15,"Adana","vegetable",1429);
+        Vegetable greenBeans = new Vegetable("GreenBeans",22,"Bursa","vegetable",1322);
+
+
+
+        List<Supplier> suppliersList = new ArrayList<>();
+        Supplier arazMeyve = new Supplier("ArazMeyve", 1133, 1000);
+        Supplier aylarTarim= new Supplier("AylarTarim", 1298, 1500);
+        Supplier hasanBey = new Supplier("HasanBey", 1322, 200);
+        Supplier zehraCiftci = new Supplier("ZehraCiftci", 1429, 1250);
+
+        suppliersList.add(arazMeyve);
+        suppliersList.add(aylarTarim);
+        suppliersList.add(hasanBey);
+        suppliersList.add(zehraCiftci);
+
+        List<Store> storeList = new ArrayList<>();
+        Store migros= new Store(5343,"Migros",1000,12);
+        Store file= new Store(5967,"File",1200,10);
+
+        storeList.add(migros);
+        storeList.add(file);
+
+
+        arazMeyve.cropList.add(redApple);
+        file.fruitList.add(orangeF);
+        arazMeyve.cropList.add(kiwi);
+        arazMeyve.cropList.add(greenAppleA);
+        hasanBey.cropList.add(orangeH);
+        migros.fruitList.add(greenAppleM);
+        migros.fruitList.add(banana);
+
+        zehraCiftci.cropList.add(parsley);
+        zehraCiftci.cropList.add(mint);
+        hasanBey.cropList.add(greenBeans);
+
+
+
+
         int option=0;
         Scanner input = new Scanner(System.in);
 
@@ -24,67 +72,124 @@ public class Main {
             System.out.println("0: Quit");
             System.out.print("Enter your selection : ");
 
-        option = input.nextInt();
+        while (true) {
 
-        switch (option){
-            case 1:
-                System.out.println("All Suppliers: ");
-                List<Supplier> suppliersList = new ArrayList<>();
-                Supplier supplier1 = new Supplier("ArazMeyve", 1133, 1000);
-                Supplier supplier2= new Supplier("AylarTarim", 1298, 1500);
-                Supplier supplier3 = new Supplier("HasanBey", 1322, 200);
-                Supplier supplier4 = new Supplier("ZehraCiftci", 1429, 1250);
-                suppliersList.add(supplier1);
-                suppliersList.add(supplier2);
-                suppliersList.add(supplier3);
-                suppliersList.add(supplier4);
-                suppliersList.forEach(supplier -> {
-                    System.out.println( supplier.getName() + " " +  supplier.getID() + " " +supplier.getBudget() +" ");
-                });
+            option = input.nextInt();
 
-                break;
-            case 2:
-                System.out.println("All Stores: ");
-                List<Store> storeList = new ArrayList<>();
-                Store store1= new Store("Migros",5343,1000,12);
-                Store store2= new Store("File",5967,1200,10);
-                storeList.add(store1);
-                storeList.add(store2);
-                storeList.forEach(store -> {
-                    System.out.println(store.getStoreName() + " " + store.getStoreID() + " " +
-                            store.getStoreMaxCapacityArea() + " " + store.getStoreKgPerSquareMeter());
-                });
-                break;
-            case 3:
-                System.out.println("Buy a fruit crop: ");
-                break;
-            case 4:
-                System.out.println("Sell a fruit crop: ");
-                break;
-            case 5:
-                System.out.println("Remove a fruit from a store: ");
-                break;
-            case 6:
-                System.out.println("Remove a crop from a supplier: ");
-                break;
-            case 7:
-                System.out.println("Add Crop: ");
-                break;
-            case 8:
-                System.out.println("Show remaining budget: ");
-                break;
-            case 9:
-                System.out.println("Show remaining capacity: ");
-                break;
-            case 0:
-                System.out.println("Quit");
-                break;
+            switch (option) {
+                case 1:
+                    System.out.println("All Suppliers: ");
+                    suppliersList.forEach(supplier -> {
+                        System.out.println(supplier.getName() + " " + supplier.getID() + " " + supplier.getBudget() + " ");
+                    });
+
+                    break;
+                case 2:
+                    System.out.println("All Stores: ");
+
+                    storeList.forEach(store -> {
+                        System.out.println(store.getName() + " " + store.getID() + " " +
+                                store.getMaxCapacityArea() + " " + store.getKGperSquareMeter());
+                    });
+                    break;
+                case 3:
+                    System.out.println("Buy a fruit crop: ");
+                    Scanner fruitt = new Scanner(System.in);
+                    String fruit = fruitt.nextLine();
+                    //Red apple datası ve storid bilgisi kullnıcının seçtiği üründen gidecek
+
+
+                    break;
+                case 4:
+                    System.out.println("Sell a fruit crop: ");
+                    Scanner sellFruit = new Scanner(System.in);
+                    break;
+                case 5:
+                    System.out.println("Remove a fruit from a store: ");
+                    System.out.printf("Migros: " +migros.availableCapacity());
+                    System.out.printf("\n");
+                    System.out.printf("File: " + file.availableCapacity());
+                    break;
+                case 6:
+                    System.out.println("Remove a crop from a supplier: ");
+                    break;
+                case 7:
+                    System.out.println("Add Crop: ");
+                    Scanner newCrop = new Scanner(new Crop(" ",," ", " ", ));
+                    System.out.printf(new Crop);
+                    break;
+                case 8:
+                    System.out.println("Show remaining budget: ");
+                    System.out.printf("ArazMeyve: " + String.valueOf(arazMeyve.getBudget()));
+                    System.out.printf("\n");
+                    System.out.printf("AylarTarim: " + String.valueOf(aylarTarim.getBudget()));
+                    System.out.printf("\n");
+                    System.out.printf("HasanBey: " + String.valueOf(hasanBey.getBudget()));
+                    System.out.printf("\n");
+                    System.out.printf("ZehraCiftci: " + String.valueOf(zehraCiftci.getBudget()));
+
+                    break;
+                case 9:
+                    System.out.println("Show remaining capacity: ");
+                    break;
+                case 0:
+                    System.out.println("Quit");
+                    System.exit(0);
+                    break;
 
 
             }
+        }
+
+
 
 
         }
 
+
+
+    public static void buyFruit(String fruit,int storeid, List<Supplier> supplierList,List<Store> storeList){
+
+        Fruit newFruit = new Fruit();
+        //for each ile supplier ve store döncem bunu döndüğümden stoere id hangisi eşitse bunu alıcam ve o id den o fruiti silcem
+        supplierList.forEach(supplier -> {
+            if (storeid == supplier.getID()){
+                supplier.cropList.add(newFruit);
+            }
+        });
+
+        storeList.forEach(store -> {
+            if (storeid == store.getID()){
+                store.fruitList.add(newFruit);
+            }
+        });
     }
+
+    public static void sellFruit(String fruit,int storeid, List<Supplier> supplierList,List<Store> storeList){
+
+        //for each ile supplier ve store döncem bunu döndüğümden stoere id hangisi eşitse bunu alıcam ve o id den o fruiti silcem
+        supplierList.forEach(supplier -> {
+            if (storeid == supplier.getID()){
+                supplier.cropList.remove(fruit);
+            }
+        });
+
+        storeList.forEach(store -> {
+            if (storeid == store.getID()){
+                store.fruitList.remove(fruit);
+            }
+        });
+    }
+
+    public void newBudget(){
+
+
+        }
+   }
+
+
+
+
+
+
 
