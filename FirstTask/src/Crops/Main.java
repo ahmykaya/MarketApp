@@ -3,6 +3,7 @@ package Crops;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class Main {
     public static void main(String[] args) {
@@ -22,10 +23,10 @@ public class Main {
 
 
         List<Supplier> suppliersList = new ArrayList<>();
-        Supplier arazMeyve = new Supplier("ArazMeyve", 1133, 1000);
-        Supplier aylarTarim= new Supplier("AylarTarim", 1298, 1500);
-        Supplier hasanBey = new Supplier("HasanBey", 1322, 200);
-        Supplier zehraCiftci = new Supplier("ZehraCiftci", 1429, 1250);
+        Supplier arazMeyve = new Supplier("ArazMeyve", 133, 1000);
+        Supplier aylarTarim= new Supplier("AylarTarim", 298, 1500);
+        Supplier hasanBey = new Supplier("HasanBey", 322, 200);
+        Supplier zehraCiftci = new Supplier("ZehraCiftci", 429, 1250);
 
         suppliersList.add(arazMeyve);
         suppliersList.add(aylarTarim);
@@ -58,10 +59,12 @@ public class Main {
         int option=0;
         Scanner input = new Scanner(System.in);
 
+        while (true) {
 
+            System.out.println("---------------------------------------");
             System.out.println("MENU");
-            System.out.println("1: All Suppliers");
-            System.out.println("2: All Stores");
+            System.out.println("1: All Suppliers"); //done
+            System.out.println("2: All Stores"); //done
             System.out.println("3: Buy a fruit crop");
             System.out.println("4: Sell a fruit crop");
             System.out.println("5: Remove a fruit from a store");
@@ -72,7 +75,6 @@ public class Main {
             System.out.println("0: Quit");
             System.out.print("Enter your selection : ");
 
-        while (true) {
 
             option = input.nextInt();
 
@@ -93,12 +95,53 @@ public class Main {
                     });
                     break;
                 case 3:
-                    System.out.println("Buy a fruit crop: ");
-                    Scanner fruitt = new Scanner(System.in);
-                    String fruit = fruitt.nextLine();
+                    System.out.println("Buy a fruit crop: "); //supplier storedan satın alır
+                    suppliersList.forEach(supplier -> {
+                        System.out.println(supplier.getName() + " " + supplier.getID() + " " + supplier.getBudget() + " ");
+                    });
+
+
+                    System.out.println("Select a supplier ");
+                    Scanner supplierID = new Scanner(System.in);
+                    int supplierid = supplierID.nextInt();
+                    final Supplier[] mysupplier = new Supplier[1];
+                    suppliersList.forEach(supplier -> {
+                        if(supplier.getID() == supplierid){
+                            mysupplier[0] = supplier;
+                        }
+
+                    });
+
+
+                    System.out.println("Select a crop ");
+
+                    storeList.forEach(store -> {
+                        store.fruitList.forEach(fruit1 -> {
+                            System.out.println("Store: " + store.getName() + " Fruit Name: " + fruit1.getName() + " Price: " + fruit1.getPrice());
+                        });
+                    });
+
+                    System.out.println("magazayi sec");
+                    Scanner sc = new Scanner(System.in);
+                    String selectedmagaza = sc.nextLine();
+
+                    System.out.println("ürünü sec");
+                    Scanner sc1 = new Scanner(System.in);
+                    String selectedurun = sc1.nextLine();
+
+
+                    storeList.forEach(store -> {
+                        if (selectedmagaza.equals(store.getName())){
+                            store.fruitList.forEach(fruit1 -> {
+                                if(fruit1.getName().equals(selectedurun)){
+                                    mysupplier[0].cropList.add(fruit1);
+                                    store.fruitList.remove(fruit1);
+                                }
+                            });
+                        }
+                    });
+
                     //Red apple datası ve storid bilgisi kullnıcının seçtiği üründen gidecek
-
-
                     break;
                 case 4:
                     System.out.println("Sell a fruit crop: ");
@@ -115,8 +158,8 @@ public class Main {
                     break;
                 case 7:
                     System.out.println("Add Crop: ");
-                    Scanner newCrop = new Scanner(new Crop(" ",," ", " ", ));
-                    System.out.printf(new Crop);
+                    //Scanner newCrop = new Scanner(new Crop(" ",," ", " ", ));
+                    //System.out.printf(new Crop);
                     break;
                 case 8:
                     System.out.println("Show remaining budget: ");
@@ -144,13 +187,13 @@ public class Main {
 
 
 
-        }
+    }
 
 
 
     public static void buyFruit(String fruit,int storeid, List<Supplier> supplierList,List<Store> storeList){
 
-        Fruit newFruit = new Fruit();
+        Fruit newFruit = null;
         //for each ile supplier ve store döncem bunu döndüğümden stoere id hangisi eşitse bunu alıcam ve o id den o fruiti silcem
         supplierList.forEach(supplier -> {
             if (storeid == supplier.getID()){
@@ -184,8 +227,8 @@ public class Main {
     public void newBudget(){
 
 
-        }
-   }
+    }
+}
 
 
 
