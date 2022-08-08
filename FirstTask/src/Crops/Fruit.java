@@ -1,7 +1,5 @@
 package Crops;
 
-import java.util.ArrayList;
-
 public class Fruit extends Crop implements Comparable<Fruit>  {
 
     private String taste;
@@ -25,8 +23,9 @@ public class Fruit extends Crop implements Comparable<Fruit>  {
         return price;
     }
 
-    public void setPrice(int price) {
+    public Fruit setPrice(int price) {
         this.price = price;
+        return null;
     }
 
     @Override

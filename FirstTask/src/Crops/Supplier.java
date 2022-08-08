@@ -55,17 +55,17 @@ public class Supplier implements CropKeeper {
         }
     }
 
-    public void buyCrop(Fruit f) throws Exception{
-        if (this.budget>= f.getWeight()*f.getPrice()){
+    public void buyCrop(Crop c , Fruit f) throws Exception{
+        if (this.budget>= c.getWeight()*f.getPrice()){
 
         }else {
             throw new Exception("SupplierHasNotEnougMoneyException");
         }
     }
 
-    public void sellCrop(Fruit f)throws Exception{ // hata var bunda
-        if (this.cropList.equals(f)){
-            cropList.remove(f);
+    public void sellCrop(Crop c)throws Exception{ // hata var bunda
+        if (this.cropList.equals(c)){
+            cropList.remove(c);
         }else {
             throw new Exception("FruitNotFoundException");
         }

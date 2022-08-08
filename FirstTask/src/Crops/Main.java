@@ -140,6 +140,7 @@ public class Main {
                             });
                         }
                     });
+                    System.out.println(storeList.get(Ar).fruitList);
 
 
                     break;
@@ -247,18 +248,18 @@ public class Main {
                     break;
                 case 8:
                     System.out.println("Show remaining budget: ");
-                    System.out.printf("ArazMeyve: " + arazMeyve.newBudget(redApple.setPrice(6));
-                    System.out.printf("\n");
-                    System.out.printf("AylarTarim: " + String.valueOf(aylarTarim.getBudget()));
-                    System.out.printf("\n");
-                    System.out.printf("HasanBey: " + String.valueOf(hasanBey.getBudget()));
-                    System.out.printf("\n");
-                    System.out.printf("ZehraCiftci: " + String.valueOf(zehraCiftci.getBudget()));
+//                    System.out.printf("ArazMeyve: " + arazMeyve.newBudget(redApple.setPrice(3)));
+//                    System.out.printf("\n");
+//                    System.out.printf("AylarTarim: " + String.valueOf(aylarTarim.getBudget()));
+//                    System.out.printf("\n");
+//                    System.out.printf("HasanBey: " + String.valueOf(hasanBey.getBudget()));
+//                    System.out.printf("\n");
+//                    System.out.printf("ZehraCiftci: " + String.valueOf(zehraCiftci.getBudget()));
 
                     break;
                 case 9:
                     System.out.println("Show remaining capacity: ");
-
+//                    System.out.println("ArazMeyve New Capacity: " +arazMeyve.);
                     break;
                 case 0:
                     System.out.println("Quit");
