@@ -1,6 +1,10 @@
 package Crops;
+import Crops.CropKeeper;
+import Crops.Fruit;
 
 import java.util.ArrayList;
+
+        import java.util.ArrayList;
 
 public class Store implements CropKeeper {
 
@@ -99,5 +103,12 @@ public class Store implements CropKeeper {
     @Override
     public void howToStore(Crop c) {
 
+    }
+
+    public void newCapacity(Fruit f){
+        fruitList.forEach(fruit -> {
+            this.usedCapacityArea = this.usedCapacityArea-(f.getWeight()*this.KGperSquareMeter);
+            System.out.println(this.usedCapacityArea);
+        });
     }
 }

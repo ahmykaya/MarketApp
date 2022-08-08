@@ -10,22 +10,15 @@ public class Supplier implements CropKeeper {
     private int ID;
     private int budget;
     ArrayList<Crop> cropList = new ArrayList<>();
-    public static int supplierID() {
-        int a ;
-        Scanner scanner = new Scanner(System.in);
-        a = scanner.nextInt();
-        String formatID;
-
-        formatID = String.format("1%s",a);
-
-        System.out.println(formatID);
-        int id = Integer.parseInt(formatID);
-        return id;
+    public static int supplierID(int id) {
+        String formatID = String.format("1%s",id);
+        int fortatedid = Integer.parseInt(formatID);
+        return fortatedid;
     }
 
     public Supplier(String name, int ID, int budget) {
         this.name = name;
-        this.ID = supplierID();
+        this.ID = supplierID(ID);
         this.budget = budget;
     }
 
@@ -62,21 +55,26 @@ public class Supplier implements CropKeeper {
         }
     }
 
-    public void buyCrop(Crop c) throws Exception{
-        if (this.budget>= ){
+    public void buyCrop(Fruit f) throws Exception{
+        if (this.budget>= f.getWeight()*f.getPrice()){
 
         }else {
             throw new Exception("SupplierHasNotEnougMoneyException");
         }
     }
 
-    public void sellCrop(Crop c)throws Exception{
-        if (){
-
+    public void sellCrop(Fruit f)throws Exception{ // hata var bunda
+        if (this.cropList.equals(f)){
+            cropList.remove(f);
         }else {
             throw new Exception("FruitNotFoundException");
         }
     }
 
-
+    public void newBudget(Fruit f){
+        cropList.forEach(crop -> {
+            this.budget = this.getBudget() - (f.getWeight() * f.getPrice());
+            System.out.println(this.budget);
+        });
+    }
 }

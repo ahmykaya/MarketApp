@@ -1,8 +1,9 @@
+
 package Crops;
 
 public interface CropKeeper {
 
-     void howToStore(Crop c);
+    void howToStore(Crop c);
 
 
 }

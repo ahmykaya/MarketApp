@@ -72,7 +72,7 @@ public class Main {
             System.out.println("7: Add Crop");
             System.out.println("8: Show remaining budget");
             System.out.println("9: Show remaining capacity");
-            System.out.println("0: Quit");
+            System.out.println("0: Quit");//done
             System.out.print("Enter your selection : ");
 
 
@@ -97,7 +97,7 @@ public class Main {
                 case 3:
                     System.out.println("Buy a fruit crop: "); //supplier storedan satın alır
                     suppliersList.forEach(supplier -> {
-                        System.out.println(supplier.getName() + " " + supplier.getID() + " " + supplier.getBudget() + " ");
+                        System.out.println(supplier.getName() + " "+" ID:" + supplier.getID() + " Budget:" + " " + supplier.getBudget() + " ");
                     });
 
 
@@ -125,7 +125,7 @@ public class Main {
                     Scanner sc = new Scanner(System.in);
                     String selectedmagaza = sc.nextLine();
 
-                    System.out.println("ürünü sec");
+                    System.out.println("Urunu sec");
                     Scanner sc1 = new Scanner(System.in);
                     String selectedurun = sc1.nextLine();
 
@@ -141,29 +141,113 @@ public class Main {
                         }
                     });
 
-                    //Red apple datası ve storid bilgisi kullnıcının seçtiği üründen gidecek
+
                     break;
                 case 4:
                     System.out.println("Sell a fruit crop: ");
-                    Scanner sellFruit = new Scanner(System.in);
+                    System.out.println("Buy a fruit crop: "); //stor supplierde satın alır
+                    suppliersList.forEach(supplier -> {
+                        System.out.println(supplier.getName() + " "+" ID:" + supplier.getID() + " Budget:" + " " + supplier.getBudget() + " ");
+                    });
+
+
+                    System.out.println("Select a supplier ");
+                    Scanner supplierrID = new Scanner(System.in);
+                    int supplierrid = supplierrID.nextInt();
+                    final Supplier[] myysupplierr = new Supplier[1];
+                    suppliersList.forEach(supplier -> {
+                        if(supplier.getID() == supplierrid){
+                            myysupplierr[0] = supplier;
+                        }
+
+                    });
+
+
+                    System.out.println("Select a crop ");
+
+                    storeList.forEach(store -> {
+                        store.fruitList.forEach(fruit1 -> {
+                            System.out.println("Store: " + store.getName() + " Fruit Name: " + fruit1.getName() + " Price: " + fruit1.getPrice());
+                        });
+                    });
+
+                    System.out.println("magazayi sec");
+                    Scanner scc = new Scanner(System.in);
+                    String selecteddmagaza = scc.nextLine();
+
+                    System.out.println("Urunu sec");
+                    Scanner scc1 = new Scanner(System.in);
+                    String selecteddurun = scc1.nextLine();
+
+
+                    storeList.forEach(store -> {
+                        if (selecteddmagaza.equals(store.getName())){
+                            store.fruitList.forEach(fruit1 -> {
+                                if(fruit1.getName().equals(selecteddurun)){
+                                    myysupplierr[0].cropList.add(fruit1);
+                                    store.fruitList.add(fruit1);
+                                }
+                            });
+                        }
+
+
+                    });
                     break;
                 case 5:
                     System.out.println("Remove a fruit from a store: ");
-                    System.out.printf("Migros: " +migros.availableCapacity());
-                    System.out.printf("\n");
-                    System.out.printf("File: " + file.availableCapacity());
+                    storeList.forEach(store -> {
+                        store.fruitList.forEach(fruit1 -> {
+                            System.out.println("Store: " + store.getName() + " Fruit Name: " + fruit1.getName() + " Price: " + fruit1.getPrice());
+                        });
+                    });
+
+                    System.out.println("urunu sec");
+                    Scanner storeSec = new Scanner(System.in);
+                    String secmagaza = storeSec.nextLine();
+
+                    storeList.forEach(store -> {
+                        if (secmagaza.equals(store.getFruitList())){
+                            store.fruitList.remove(secmagaza);
+                        }
+                    });
+
+                    System.out.println("Kalan fruit: " +storeList.remove(secmagaza) );
+
+
+
+
+
+
+
                     break;
                 case 6:
                     System.out.println("Remove a crop from a supplier: ");
+                    suppliersList.forEach(supplier -> {
+                        supplier.cropList.forEach(crop -> {
+                            System.out.println("Supplier: " +supplier.getName() + "ID: " + supplier.getID() + "Budget: " + supplier.getBudget());
+                        });
+                    });
+                    System.out.println("urunu sec");
+                    Scanner suppliersec = new Scanner(System.in);
+                    String secsupp = suppliersec.nextLine();
+
+                    suppliersList.forEach(supplier -> {
+                        if (secsupp.equals(supplier.getName())){
+                            supplier.cropList.remove(secsupp);
+                        }
+                    });
                     break;
                 case 7:
                     System.out.println("Add Crop: ");
-                    //Scanner newCrop = new Scanner(new Crop(" ",," ", " ", ));
-                    //System.out.printf(new Crop);
+                    Scanner scan = new Scanner(System.in);
+                    System.out.println("Add Crop");
+                    String next = scan.next();
+                    System.out.println(next);
+
                     break;
                 case 8:
                     System.out.println("Show remaining budget: ");
-                    System.out.printf("ArazMeyve: " + String.valueOf(arazMeyve.getBudget()));
+                    System.out.printf("ArazMeyve: " + arazMeyve.newBudget(redApple.setPrice(6));
                     System.out.printf("\n");
                     System.out.printf("AylarTarim: " + String.valueOf(aylarTarim.getBudget()));
                     System.out.printf("\n");
@@ -174,6 +258,7 @@ public class Main {
                     break;
                 case 9:
                     System.out.println("Show remaining capacity: ");
+
                     break;
                 case 0:
                     System.out.println("Quit");
@@ -224,15 +309,20 @@ public class Main {
         });
     }
 
-    public void newBudget(){
+    public void newBudget(Supplier s , Fruit f){
 
+        int i= s.getBudget() - f.getPrice();
+        System.out.println(i);
 
     }
+
+    public void newCrop(Crop c){
+        Scanner crop = new Scanner(System.in);
+        crop.next();
+        System.out.println(crop);
+    }
+
+
+
 }
-
-
-
-
-
-
 

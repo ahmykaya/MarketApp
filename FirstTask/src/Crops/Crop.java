@@ -2,11 +2,11 @@ package Crops;
 
 public abstract class Crop {
 
-   private String name;
-   private int weight;
-   private String cultivatedSeason;
-   private String type;
-   private int IDcropKeeper;
+    private String name;
+    private int weight;
+    private String cultivatedSeason;
+    private String type;
+    private int IDcropKeeper;
 
 
 
@@ -59,4 +59,3 @@ public abstract class Crop {
     }
 
 }
-
