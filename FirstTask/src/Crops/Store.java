@@ -100,6 +100,8 @@ public class Store implements CropKeeper {
 
     }
 
+
+
     @Override
     public void howToStore(Crop c) {
 
