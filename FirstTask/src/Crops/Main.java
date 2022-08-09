@@ -108,7 +108,7 @@ public class Main {
                     int supplierid = supplierID.nextInt();
                     final Supplier[] mysupplier = new Supplier[1];
                     Supplier supplier1 = suppliersList.stream().filter(supplier -> supplier.getID() == supplierid).findFirst().get();
-                    
+
 
                     System.out.println("Select a crop ");
 
@@ -142,8 +142,6 @@ public class Main {
                         store.fruitList.remove(mf.get());
 
                     });
-
-
 
 
                     break;
@@ -304,8 +302,8 @@ public class Main {
                     break;
                 case 8:
                     System.out.println("Show remaining budget: ");
-
-
+                    Supplier supplier2 = null;
+                    supplier2.getBudget() = sup.getBudget() - selectedurun.;
 
 
 
