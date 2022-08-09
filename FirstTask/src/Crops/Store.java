@@ -4,7 +4,7 @@ import Crops.Fruit;
 
 import java.util.ArrayList;
 
-        import java.util.ArrayList;
+import java.util.ArrayList;
 
 public class Store implements CropKeeper {
 
