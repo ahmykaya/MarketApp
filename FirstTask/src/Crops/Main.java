@@ -158,46 +158,44 @@ public class Main {
                 case 4:
                     System.out.println("Sell a fruit crop: ");
                     storeList.forEach(store -> {
-                        store.fruitList.forEach(fruit1 -> {
-                            System.out.println("Store: " + store.getName() + " Fruit Name: " + fruit1.getName() + " Price: " + fruit1.getPrice());
+                        System.out.println(store.getName() + " " + store.getID() + " " +
+                                store.getMaxCapacityArea() + " " + store.getKGperSquareMeter());
+                        });
+
+                    System.out.println("Select a store ");
+                    Scanner storeID = new Scanner(System.in);
+                    int storeid = storeID.nextInt();
+                    final Store[] mystore = new Store[1];
+                    Store store1 = storeList.stream().filter(store -> store.getID() == storeid).findFirst().get();
+
+                    System.out.println("Select a crop ");
+
+                    suppliersList.forEach(supplier -> {
+                        supplier.cropList.forEach(crop1 -> {
+                            System.out.println("SupplierName: " +supplier.getName()+" " +" " + "Crop name: " +crop1.getName() + "ID: " + " " + crop1.getIDcropKeeper());
                         });
                     });
 
                     System.out.println("magazayi sec");
                     Scanner sc4 = new Scanner(System.in);
-                    String selectedmagaza2 = sc4.nextLine();
+                    String selectedmagaza4 = sc4.nextLine();
 
+                    System.out.println("Urunu sec");
+                    Scanner sc5 = new Scanner(System.in);
+                    String selectedurun5 = sc5.nextLine();
+
+                    AtomicReference<Fruit> mf4 = new AtomicReference<>();
                     suppliersList.forEach(supplier -> {
-                        System.out.println(supplier.getName() + " "+" ID:" + supplier.getID() + " Budget:" + " " + supplier.getBudget() + " ");
-                    });
-
-                    System.out.println("Id sec");
-                    Scanner sc6 = new Scanner(System.in);
-                    int selectedsupplier = sc6.nextInt();
-
-                    AtomicReference<Crop> mf4 = new AtomicReference<>();
-                    suppliersList.forEach(supplier -> {
-                        if (selectedsupplier ==supplier.getID()){
+                        if (selectedmagaza4.equals(supplier.getName())){
                             supplier.cropList.forEach(crop1 -> {
-                                System.out.println(crop1);
-                                System.out.println("crop1");
-                            });
+                                if (crop1.getName().equals(selectedurun5)){
+                                    store1.fruitList.add((Fruit) crop1);
+                                    mf4.set((Fruit) crop1);
 
-                            System.out.println("Urunu sec");
-                            Scanner sc5 = new Scanner(System.in);
-                            String selectedurun2 = sc5.nextLine();
-
-
-                            supplier.cropList.forEach(crop1 -> {
-                                if (crop1.getName().equals(selectedurun2)){
-                                    supplier.cropList.remove(crop1);
-                                    mf4.set(crop1);
-                                    System.out.println();
                                 }
                             });
-
-                            supplier.cropList.remove(mf4);
                         }
+                        supplier.cropList.remove(mf4.get());
                     });
 
                     break;
@@ -373,10 +371,8 @@ public class Main {
                             store.fruitList.remove(mf5.get());
 
                         }else {
-                            System.out.println("Alamazsiniz paraniz yok :( ");
+                            System.out.println("Alamazsiniz");
                         }
-
-
 
 
                     });
@@ -384,80 +380,53 @@ public class Main {
                 case 9:
                     System.out.println("Show remaining capacity: ");
                     storeList.forEach(store -> {
-                        store.fruitList.forEach(fruit1 -> {
-                            System.out.println("Store: " + store.getName() + " Fruit Name: " + fruit1.getName() + " Price: " + fruit1.getPrice());
+                        System.out.println(store.getName() + " " + store.getID() + " " +
+                                store.getMaxCapacityArea() +" " +store.getUsedCapacityArea() + " " + store.getKGperSquareMeter());
+                        });
+
+                    System.out.println("Select a store ");
+                    Scanner storeID1 = new Scanner(System.in);
+                    int storeid1 = storeID1.nextInt();
+                    final Store[] mystore1 = new Store[1];
+                    Store store11 = storeList.stream().filter(store -> store.getID() == storeid1).findFirst().get();
+
+                    System.out.println("Select a crop ");
+
+                    suppliersList.forEach(supplier -> {
+                        supplier.cropList.forEach(crop1 -> {
+                            System.out.println("SupplierName: " +supplier.getName()+" " +" " + "Crop name: " +crop1.getName() + "ID: " + " " + crop1.getIDcropKeeper());
                         });
                     });
 
                     System.out.println("magazayi sec");
-                    Scanner sc5 = new Scanner(System.in);
-                    String selectedmagaza4 = sc5.nextLine();
-                    Store store1 = storeList.stream().filter(store -> store.getName().equals(selectedmagaza4)).findFirst().get();
+                    Scanner sc6 = new Scanner(System.in);
+                    String selectedmagaza9 = sc6.nextLine();
 
-
-                    suppliersList.forEach(supplier -> {
-                        System.out.println(supplier.getName() + " "+" ID:" + supplier.getID() + " Budget:" + " " + supplier.getBudget() + " ");
-                    });
-
-                    System.out.println("Dukkan sec");
+                    System.out.println("Urunu sec");
                     Scanner sc9 = new Scanner(System.in);
-                    String selectedsupplier9 = sc9.nextLine();
+                    String selectedurun9 = sc9.nextLine();
 
-                    AtomicReference<Supplier> mf8 = new AtomicReference<>();
-                    suppliersList.forEach(supplier9 -> {
-                        if (selectedsupplier9.equals(supplier9.getName())){
-                            System.out.println(supplier9.cropList);
+                    AtomicReference<Fruit> mf0 = new AtomicReference<>();
+                    suppliersList.forEach(supplier -> {
+                        if (selectedmagaza9.equals(supplier.getName())){
+                            supplier.cropList.forEach(crop1 -> {
+                                if (crop1.getName().equals(selectedurun9)){
+                                    store11.fruitList.add((Fruit) crop1);
+                                    mf0.set((Fruit) crop1);
+
+                                }
+                            });
                         }
+                        int newCapacity;
+                        newCapacity = store11.getMaxCapacityArea()-(store11.getUsedCapacityArea()+(mf0.get().getWeight()*store11.getKGperSquareMeter()));
+                        System.out.println(newCapacity);
+
+                        int a;
+                        a=store11.getMaxCapacityArea();
+                        if (a)
+
 
                     });
-                        System.out.println("Urunu sec");
-                        Scanner sc0= new Scanner(System.in);
-                        String selectedurun9 = sc0.nextLine();
-
-                        suppliersList.forEach(supplier0 -> {
-                            if (supplier0.getName().equals(selectedurun9)){
-                                store1.fruitList.add(supplier0);
-                                mf8.set(supplier0);
-                                System.out.println();
-                            }
-
-                            System.out.println(supplier0.cropList);
-                        });
-
-
-
-//                    storeList.forEach(store9 -> {
-//                                if (selectedmagaza4.equals(store9.getName())){
-//                                    storeList.forEach(store8 -> {
-//                                        store8.fruitList.add(supplier0.cropList.get());
-//                                    } );
-//                                }
-//                            });
-
-
-
-
-
-
-//                    System.out.println("Urunu sec");
-//                    Scanner sc0= new Scanner(System.in);
-//                    int selectedurun9 = sc0.nextInt();
-//
-//
-//                    suppliersList.forEach(supplier -> {
-//                        if (selectedurun9 == (supplier.cropList.size())){
-//                            System.out.println("Sectginiz meyve: " + selectedurun9);;
-//                            supplier.cropList.remove(selectedurun9);
-//
-//                        }
-//                        System.out.println(supplier9.cropList);
-
-
-//                    });
-
-
-//                    Supplier supplier1 = suppliersList.stream().filter(supplier -> supplier.getID() == supplierid).findFirst().get();
-
 
                     break;
 
@@ -470,13 +439,7 @@ public class Main {
 
             }
         }
-
-
-
-
     }
-
-
 
     public static void buyFruit(String fruit,int storeid, List<Supplier> supplierList,List<Store> storeList){
 
@@ -495,21 +458,29 @@ public class Main {
         });
     }
 
-    public static void sellFruit(String fruit,int storeid, List<Supplier> supplierList,List<Store> storeList){
+    public static void sellFruitSupplier(String fruitsell,String supplierName, List<Supplier> supplierList) throws Exception{
 
         //for each ile supplier ve store döncem bunu döndüğümden stoere id hangisi eşitse bunu alıcam ve o id den o fruiti silcem
         supplierList.forEach(supplier -> {
-            if (storeid == supplier.getID()){
-                supplier.cropList.remove(fruit);
+            if (supplierName.equals(supplier.getName())){
+                supplier.cropList.remove(fruitsell);
             }
         });
 
+    }
+
+    public static void sellFruitStore(String storesell,String storeName,List<Store> storeList) throws Exception{
+
+        //for each ile supplier ve store döncem bunu döndüğümden stoere id hangisi eşitse bunu alıcam ve o id den o fruiti silce
+
         storeList.forEach(store -> {
-            if (storeid == store.getID()){
-                store.fruitList.remove(fruit);
+            if (storeName.equals(store.getName())){
+                store.fruitList.remove(storesell);
             }
         });
     }
+
+
 
     public static void newBudget(Supplier s, Fruit f){
 
@@ -523,9 +494,6 @@ public class Main {
         crop.next();
         System.out.println(c);
     }
-
-
-
 
 
 }

@@ -31,6 +31,14 @@ public class Fruit extends Crop implements Comparable<Fruit>  {
         return null;
     }
 
+    public String getCultivatedSeason() {
+        return cultivatedSeason;
+    }
+
+    public void setCultivatedSeason(String cultivatedSeason) {
+        this.cultivatedSeason = cultivatedSeason;
+    }
+
     @Override
     public String toString() {
         return getName() + getWeight() ;
