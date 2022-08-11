@@ -4,13 +4,13 @@ public class Vegetable extends Crop implements Comparable<Vegetable> {
 
     private String cultivatedRegion;
 
-    public Vegetable(String name, int weight, String cultivatedSeason,String type,int IDcropKeeper) {
-        super(name, weight, cultivatedSeason,type,IDcropKeeper);
+    public Vegetable(String name, int weight,String cultivatedRegion,String type,int IDcropKeeper) {
+        super(name, weight,type,IDcropKeeper);
         this.cultivatedRegion=cultivatedRegion;
     }
 
     public String getCultivatedRegion() {
-        return cultivatedRegion;
+        return cultivatedRegion=cultivatedRegion;
     }
 
     public void setCultivatedRegion(String cultivatedRegion) {

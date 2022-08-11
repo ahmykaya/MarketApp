@@ -4,16 +4,14 @@ public abstract class Crop {
 
     private String name;
     private int weight;
-    private String cultivatedSeason;
     private String type;
     private int IDcropKeeper;
 
 
 
-    public Crop(String name, int weight, String cultivatedSeason, String type,int IDcropKeeper) {
+    public Crop(String name, int weight, String type,int IDcropKeeper) {
         this.name = name;
         this.weight = weight;
-        this.cultivatedSeason = cultivatedSeason;
         this.type=type;
         this.IDcropKeeper=IDcropKeeper;
     }
@@ -34,14 +32,6 @@ public abstract class Crop {
         this.weight = weight;
     }
 
-    public String getCultivatedSeason() {
-        return cultivatedSeason;
-    }
-
-    public void setCultivatedSeason(String cultivatedSeason) {
-        this.cultivatedSeason = cultivatedSeason;
-    }
-
     public String getType() {
         return type;
     }
@@ -58,4 +48,8 @@ public abstract class Crop {
         this.IDcropKeeper = IDcropKeeper;
     }
 
+//    @Override
+//    public String toString() {
+//        return super.toString();
+//    }
 }

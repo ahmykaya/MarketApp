@@ -5,10 +5,13 @@ public class Fruit extends Crop implements Comparable<Fruit>  {
     private String taste;
     private int price;
 
-    public Fruit(String name, int weight, String cultivatedSeason,String taste,int price,String type,int IDcropKeeper) {
-        super(name, weight, cultivatedSeason,type,IDcropKeeper);
+    private String cultivatedSeason;
+
+    public Fruit(String name, int weight,String cultivatedSeason,String taste,int price,String type,int IDcropKeeper) {
+        super(name, weight,type,IDcropKeeper);
         this.taste=taste;
         this.price=price;
+        this.cultivatedSeason=cultivatedSeason;
     }
 
     public String getTaste() {

@@ -22,6 +22,7 @@ public class Main {
         Vegetable mint = new Vegetable("Mint",15,"Adana","vegetable",1429);
         Vegetable greenBeans = new Vegetable("GreenBeans",22,"Bursa","vegetable",1322);
 
+
         hepsi.add(String.valueOf(redApple));
         hepsi.add(String.valueOf(orangeF));
         hepsi.add(String.valueOf(kiwi));
