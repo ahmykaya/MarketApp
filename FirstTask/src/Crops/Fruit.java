@@ -41,7 +41,7 @@ public class Fruit extends Crop implements Comparable<Fruit>  {
 
     @Override
     public String toString() {
-        return getName() + getWeight() ;
+        return getName();
     }
 
     public String consumeIt(){

@@ -1,14 +1,17 @@
 package Crops;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+
 
         List<String> hepsi = new ArrayList<>();
+
 
         Fruit redApple = new Fruit("RedApple",45,"winter","sweet",3,"fruit",1133);
         Fruit orangeF = new Fruit("Orange",50,"autumn","sour",4,"fruit",5967);
@@ -17,6 +20,7 @@ public class Main {
         Fruit orangeH = new Fruit("Orange",20,"autumn","sour",4,"fruit",1322);
         Fruit greenAppleM = new Fruit("GreenApple",5,"winter","sweet",6,"fruit",5343);
         Fruit banana = new Fruit("Banana",63,"summer","sweet",12,"fruit",5343);
+
 
         Vegetable parsley = new Vegetable("Parsley",25,"Samsun","vegetable",1429);
         Vegetable mint = new Vegetable("Mint",15,"Adana","vegetable",1429);
@@ -44,6 +48,50 @@ public class Main {
         suppliersList.add(aylarTarim);
         suppliersList.add(hasanBey);
         suppliersList.add(zehraCiftci);
+
+        File file1 = new File("supplier.txt");
+        if (!file1.exists()){
+            file1.createNewFile();
+        }
+
+        FileReader fileReader1 = new FileReader(file1);
+        String supp1;
+        BufferedReader bf1 = new BufferedReader(fileReader1);
+        while ((supp1 =bf1.readLine()) !=null){
+            System.out.println(supp1);
+        }
+        bf1.close();
+
+        System.out.println("---------------------------");
+
+        File file2 = new File("crop.txt");
+        if (!file2.exists()){
+            file2.createNewFile();
+        }
+        FileReader fileReader2 = new FileReader(file2);
+        String supp2;
+        BufferedReader bf2 = new BufferedReader(fileReader2);
+
+
+        bf2.close();
+
+        System.out.println("---------------------------");
+
+
+        File file3 = new File("store.txt");
+        if (!file3.exists()){
+            file3.createNewFile();
+        }
+        FileReader fileReader3 = new FileReader(file3);
+        String supp3 = "Migros, 5343, 1000, 12";
+        String [] supp6 = supp3.split(",");
+        BufferedReader bf3 = new BufferedReader(fileReader3);
+        for (String a : supp6){
+            System.out.println(a);
+        }
+        bf3.close();
+
+
 
         List<Store> storeList = new ArrayList<>();
         Store migros= new Store(5343,"Migros",1000,12);
@@ -78,12 +126,12 @@ public class Main {
             System.out.println("1: All Suppliers"); //done
             System.out.println("2: All Stores"); //done
             System.out.println("3: Buy a fruit crop");//done
-            System.out.println("4: Sell a fruit crop");//done ( ama bitmiyor)
+            System.out.println("4: Sell a fruit crop");//done
             System.out.println("5: Remove a fruit from a store");//done
             System.out.println("6: Remove a crop from a supplier");//done
             System.out.println("7: Add Crop");// yarım oldu
             System.out.println("8: Show remaining budget");//done
-            System.out.println("9: Show remaining capacity");
+            System.out.println("9: Show remaining capacity");//done
             System.out.println("0: Quit");//done
             System.out.print("Enter your selection : ");
 
@@ -136,7 +184,6 @@ public class Main {
                     Scanner sc1 = new Scanner(System.in);
                     String selectedurun = sc1.nextLine();
 
-
                     AtomicReference<Fruit> mf = new AtomicReference<>();
                     storeList.forEach(store -> {
                         if (selectedmagaza.equals(store.getName())){
@@ -148,6 +195,8 @@ public class Main {
                                 }
 
                             });
+
+
                         }
                         store.fruitList.remove(mf.get());
 
@@ -172,7 +221,7 @@ public class Main {
 
                     suppliersList.forEach(supplier -> {
                         supplier.cropList.forEach(crop1 -> {
-                            System.out.println("SupplierName: " +supplier.getName()+" " +" " + "Crop name: " +crop1.getName() + "ID: " + " " + crop1.getIDcropKeeper());
+                            System.out.println("SupplierName: " +supplier.getName()+" " +" " + "Crop name: " + " " +  crop1.getName() + "Price: " + " " + " "  + "Kilo: " + " " + crop1.getWeight()+" " + "ID: " + " " + crop1.getIDcropKeeper());
                         });
                     });
 
@@ -181,21 +230,43 @@ public class Main {
                     String selectedmagaza4 = sc4.nextLine();
 
                     System.out.println("Urunu sec");
+                    Scanner sc2 = new Scanner(System.in);
+                    String selectedurun5 = sc2.nextLine();
+
+                    System.out.println("Kac kilo alcan?");
                     Scanner sc5 = new Scanner(System.in);
-                    String selectedurun5 = sc5.nextLine();
+                    int kilo = sc5.nextInt();
 
                     AtomicReference<Fruit> mf4 = new AtomicReference<>();
                     suppliersList.forEach(supplier -> {
                         if (selectedmagaza4.equals(supplier.getName())){
                             supplier.cropList.forEach(crop1 -> {
                                 if (crop1.getName().equals(selectedurun5)){
-                                    store1.fruitList.add((Fruit) crop1);
-                                    mf4.set((Fruit) crop1);
+                                    if (kilo<=crop1.getWeight()){
+                                        store1.fruitList.add((Fruit) crop1);
+                                        mf4.set((Fruit) crop1);
+                                    }else {
+                                        System.out.println("Kilo fazla girdiniz");
+                                    }
 
+                                    int a ;
+                                    a=crop1.getWeight()-kilo;
+                                    System.out.println(crop1.getName() +" "+ a);
+
+
+                                    int b ;
+                                    b = supplier.getBudget() + (kilo*mf4.get().getPrice());
+                                    System.out.println(supplier.getName() + " " + b);
                                 }
+
+
+
                             });
+
                         }
-                        supplier.cropList.remove(mf4.get());
+                        if (mf4.get().getWeight()<=0){
+                            supplier.cropList.remove(mf4.get());
+                        }
                     });
 
                     break;
@@ -212,8 +283,8 @@ public class Main {
                     String selectedmagaza1 = sc3.nextLine();
 
                     System.out.println("Urunu sec");
-                    Scanner sc2 = new Scanner(System.in);
-                    String selectedurun1 = sc2.nextLine();
+                    Scanner sc6 = new Scanner(System.in);
+                    String selectedurun1 = sc6.nextLine();
 
                     AtomicReference<Fruit> mf2 = new AtomicReference<>();
                     storeList.forEach(store -> {
@@ -258,64 +329,178 @@ public class Main {
                     break;
                 case 7:
                     System.out.println("Add Crop: ");
+                    System.out.println("Meyve mi Sebze mi eklicen?");
                     Scanner newCrop = new Scanner(System.in);
-                    Crop c;
-                    Store s1 ;
-                    Supplier sup = null;
+                    String type = newCrop.nextLine();
+
+                    System.out.println("Supplier mi Store mu ?");
+                    Scanner newCrop1 = new Scanner(System.in);
+                    String type1 = newCrop1.nextLine();
 
 
-                    System.out.println("Name gir: ");
-                    String  name = newCrop.nextLine();
+                    if (type1.equals("Supplier")){
+                        if (type.equals("Fruit")){
+                            System.out.println("Supplier Sec:");
+                            Scanner a = new Scanner(System.in);
+                            String supplierAdd = a.nextLine();
 
-                    System.out.println("Weight gir: ");
-                    int weight = newCrop.nextInt();
+                            suppliersList.forEach(supplier -> {
+                                if (supplierAdd.equals(supplier.getName())){
 
-                    System.out.println("CultivatedSeason gir :  (Winter, Autumn , Spring , Summer)");
-                    Scanner cultivatedSeason = new Scanner(System.in);
-                    String cultivatedSeason1 = cultivatedSeason.nextLine();
+                                    System.out.println("Name Sec:");
+                                    Scanner a1 = new Scanner(System.in);
+                                    String supplierAdd1 = a1.nextLine();
 
-                    System.out.println("Taste: ");
-                    Scanner taste = new Scanner(System.in);
-                    String taste1 = taste.nextLine();
+                                    System.out.println("Weight Sec:");
+                                    Scanner a2 = new Scanner(System.in);
+                                    int supplierAdd2 = a2.nextInt();
 
-                    System.out.println("Price: ");
-                    Scanner price = new Scanner(System.in);
-                    int price1 = price.nextInt();
+                                    System.out.println("cultivatedSeason Sec:");
+                                    Scanner a3 = new Scanner(System.in);
+                                    String supplierAdd3 = a3.nextLine();
 
-                    System.out.println("Type:   (Fruit , Vegetables)");
-                    Scanner type = new Scanner(System.in);
-                    String type1 = type.nextLine();
+                                    System.out.println("taste Sec:");
+                                    Scanner a4 = new Scanner(System.in);
+                                    String supplierAdd4 = a4.nextLine();
 
-                    System.out.println("IDcropKeeper:  (1133,1298,1122,1429,5343,5967) ");
-                    Scanner Id = new Scanner(System.in);
-                    int IDcropKeeper1 = Id.nextInt();
+                                    System.out.println("price Sec:");
+                                    Scanner a5 = new Scanner(System.in);
+                                    int supplierAdd5 = a5.nextInt();
 
-                    Fruit fruit = null;
-                    if (type.equals("Fruit")){
-                     fruit = new Fruit(name ,weight,cultivatedSeason1,taste1,price1,type1,IDcropKeeper1);
+                                    System.out.println("type Sec:");
+                                    Scanner a6 = new Scanner(System.in);
+                                    String supplierAdd6 = a6.nextLine();
 
-                    }
+                                    System.out.println("IDcropKeeper Sec:" +"\n" +"ArazMeyve : 1133" +"\n" +"AylarTarim : 1298" +"\n" +"HasanBey : 1322" +"\n" +"Zehra Ciftci : 1429"  );
+                                    Scanner a7 = new Scanner(System.in);
+                                    int supplierAdd7 = a7.nextInt();
 
-                    Vegetable vegetable = null;
-                    if (type.equals("Vegetable")){
-                        vegetable = new Vegetable(name,weight,cultivatedSeason1,type1,IDcropKeeper1);
-                    }
+                                    System.out.println("Fruit Name:" + " " +supplierAdd1 + " "  +"Weight:" + " " +  supplierAdd2 +" "  + "cultivatedSeason:" + " " +  supplierAdd3 + " "
+                                            + "Taste:" + " " +  supplierAdd4 + " " + "Price:" + " " + supplierAdd5
+                                            +" " +  "Type:" + " " +  supplierAdd6 + " " + "IdCropKeeper:" + " " +  supplierAdd7);
 
-                    Fruit finalFruit = fruit;
-                    suppliersList.forEach(supplier -> {
-                        if (IDcropKeeper1 == supplier.getID()){
-                            supplier.cropList.add(finalFruit);
+                                    Fruit addCrop = new Fruit(supplierAdd1,supplierAdd2,supplierAdd3,supplierAdd4,supplierAdd5,supplierAdd6,supplierAdd7);
+                                    Crop  c;
+                                    suppliersList.forEach(supplier2 -> {
+                                        if (supplierAdd.equals(supplier2.getName())){
+                                            supplier2.cropList.add(addCrop);
+                                            System.out.println(supplier2.cropList);
+                                        }
+
+                                    });
+
+
+
+                                }
+                            });
+
+
                         }
-                        System.out.println(newCrop);
-                    });
 
-                    Vegetable finalVegetable = vegetable;
-                    suppliersList.forEach(supplier -> {
-                        if (IDcropKeeper1 == supplier.getID()){
-                            supplier.cropList.add(finalVegetable);
+                        if (type.equals("Vegetable")){
+                            System.out.println("Supplier Sec:");
+                            Scanner a = new Scanner(System.in);
+                            String supplierAdd = a.nextLine();
+
+                            suppliersList.forEach(supplier -> {
+                                if (supplierAdd.equals(supplier.getName())){
+
+                                    System.out.println("Name Sec:");
+                                    Scanner a1 = new Scanner(System.in);
+                                    String supplierAdd1 = a1.nextLine();
+
+                                    System.out.println("Weight Sec:");
+                                    Scanner a2 = new Scanner(System.in);
+                                    int supplierAdd2 = a2.nextInt();
+
+                                    System.out.println("cultivatedRegion Sec:");
+                                    Scanner a3 = new Scanner(System.in);
+                                    String supplierAdd3 = a3.nextLine();
+
+                                    System.out.println("type Sec:");
+                                    Scanner a6 = new Scanner(System.in);
+                                    String supplierAdd6 = a6.nextLine();
+
+                                    System.out.println("IDcropKeeper Sec:" +"\n" +"ArazMeyve : 1133" +"\n" +"AylarTarim : 1298" +"\n" +"HasanBey : 1322" +"\n" +"Zehra Ciftci : 1429"  );
+                                    Scanner a7 = new Scanner(System.in);
+                                    int supplierAdd7 = a7.nextInt();
+
+                                    System.out.println("Fruit Name:" + " " +supplierAdd1 + " "  +"Weight:" + " " +  supplierAdd2 +" "  + "cultivatedRegion:" + " " +  supplierAdd3 + " "
+                                            + "Type:" + " " +  supplierAdd6 + " " + "IdCropKeeper:" + " " +  supplierAdd7);
+
+                                    Vegetable newVegg = new Vegetable(supplierAdd1,supplierAdd2,supplierAdd3,supplierAdd6,supplierAdd7);
+
+                                    suppliersList.forEach(supplier2 -> {
+                                        supplier2.cropList.add(newVegg);
+                                        System.out.println(supplier2.cropList);
+                                    });
+
+
+                                }
+                            });
+
+
+
                         }
-                        System.out.println(finalVegetable);
-                    });
+                    } else if (type1.equals("Store")) {
+                        if (type.equals("Fruit")){
+                            System.out.println("Supplier Sec:");
+                            Scanner a = new Scanner(System.in);
+                            String storeAdd = a.nextLine();
+
+                            storeList.forEach(store -> {
+                                if (storeAdd.equals(store.getName())){
+
+                                    System.out.println("Name Sec:");
+                                    Scanner a1 = new Scanner(System.in);
+                                    String supplierAdd1 = a1.nextLine();
+
+                                    System.out.println("Weight Sec:");
+                                    Scanner a2 = new Scanner(System.in);
+                                    int supplierAdd2 = a2.nextInt();
+
+                                    System.out.println("cultivatedSeason Sec:");
+                                    Scanner a3 = new Scanner(System.in);
+                                    String supplierAdd3 = a3.nextLine();
+
+                                    System.out.println("taste Sec:");
+                                    Scanner a4 = new Scanner(System.in);
+                                    String supplierAdd4 = a4.nextLine();
+
+                                    System.out.println("price Sec:");
+                                    Scanner a5 = new Scanner(System.in);
+                                    int supplierAdd5 = a5.nextInt();
+
+                                    System.out.println("type Sec:");
+                                    Scanner a6 = new Scanner(System.in);
+                                    String supplierAdd6 = a6.nextLine();
+
+                                    System.out.println("IDcropKeeper Sec:" +"\n" +"ArazMeyve : 1133" +"\n" +"AylarTarim : 1298" +"\n" +"HasanBey : 1322" +"\n" +"Zehra Ciftci : 1429"  );
+                                    Scanner a7 = new Scanner(System.in);
+                                    int supplierAdd7 = a7.nextInt();
+
+                                    System.out.println("Fruit Name:" + " " +supplierAdd1 + " "  +"Weight:" + " " +  supplierAdd2 +" "  + "cultivatedSeason:" + " " +  supplierAdd3 + " "
+                                            + "Taste:" + " " +  supplierAdd4 + " " + "Price:" + " " + supplierAdd5
+                                            +" " +  "Type:" + " " +  supplierAdd6 + " " + "IdCropKeeper:" + " " +  supplierAdd7);
+
+                                    Fruit addCrop = new Fruit(supplierAdd1,supplierAdd2,supplierAdd3,supplierAdd4,supplierAdd5,supplierAdd6,supplierAdd7);
+                                    Crop  c;
+                                    storeList.forEach(store2 -> {
+                                        store2.fruitList.add(addCrop);
+                                        System.out.println(store2.fruitList);
+                                    });
+
+
+                                }
+                            });
+
+
+                        }else {
+                            System.out.println("Sebze Eklenmiyor");
+                        }
+}
+
+
 
                     break;
                 case 8:
@@ -399,8 +584,8 @@ public class Main {
                     });
 
                     System.out.println("magazayi sec");
-                    Scanner sc6 = new Scanner(System.in);
-                    String selectedmagaza9 = sc6.nextLine();
+                    Scanner sca = new Scanner(System.in);
+                    String selectedmagaza9 = sca.nextLine();
 
                     System.out.println("Urunu sec");
                     Scanner sc9 = new Scanner(System.in);
@@ -423,7 +608,11 @@ public class Main {
 
                         int a;
                         a=store11.getMaxCapacityArea();
-                        if (a)
+                        if (a-newCapacity>=0){
+                            supplier.cropList.remove(mf0.get());
+                        }else {
+                            System.out.println("Yeterli yeriniz yok.");
+                        }
 
 
                     });
