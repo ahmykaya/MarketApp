@@ -15,9 +15,9 @@ public class Store implements CropKeeper {
     private int KGperSquareMeter=10;
     ArrayList<Fruit> fruitList = new ArrayList<>();
 
-    public Store(int ID, String name, int maxCapacityArea, int usedCapacityArea) {
-        this.ID = ID;
+    public Store(String name,int ID, int maxCapacityArea, int usedCapacityArea) {
         this.name = name;
+        this.ID = ID;
         this.maxCapacityArea = maxCapacityArea;
         this.usedCapacityArea = usedCapacityArea;
     }

@@ -9,10 +9,10 @@ public abstract class Crop {
 
 
 
-    public Crop(String name, int weight, String type,int IDcropKeeper) {
+    public Crop(String name, String type, int weight,int IDcropKeeper) {
         this.name = name;
-        this.weight = weight;
         this.type=type;
+        this.weight = weight;
         this.IDcropKeeper=IDcropKeeper;
     }
 
