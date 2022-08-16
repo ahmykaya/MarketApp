@@ -193,7 +193,7 @@ public class Main {
                     storeList.forEach(store -> {
                         System.out.println(store.getName() + " " + store.getID() + " " +
                                 store.getMaxCapacityArea() + " " + store.getKGperSquareMeter());
-                        });
+                    });
 
                     System.out.println("Select a store ");
                     Scanner storeID = new Scanner(System.in);
@@ -229,28 +229,28 @@ public class Main {
                                     if (kilo<=crop1.getWeight()){
                                         store1.fruitList.add((Fruit) crop1);
                                         mf4.set((Fruit) crop1);
+                                        int a ;
+                                        a=crop1.getWeight()-kilo;
+                                        System.out.println(crop1.getName() +" "+ a);
+
+
+                                        int b ;
+                                        b = supplier.getBudget() + (kilo*mf4.get().getPrice());
+                                        System.out.println(supplier.getName() + " " + b);
                                     }else {
                                         System.out.println("Kilo fazla girdiniz");
+                                        return ;
+                                    }
+                                    if (mf4.get().getWeight()<=0){
+                                        supplier.cropList.remove(mf4.get());
                                     }
 
-                                    int a ;
-                                    a=crop1.getWeight()-kilo;
-                                    System.out.println(crop1.getName() +" "+ a);
-
-
-                                    int b ;
-                                    b = supplier.getBudget() + (kilo*mf4.get().getPrice());
-                                    System.out.println(supplier.getName() + " " + b);
                                 }
-
-
 
                             });
 
                         }
-                        if (mf4.get().getWeight()<=0){
-                            supplier.cropList.remove(mf4.get());
-                        }
+
                     });
 
                     break;
@@ -486,7 +486,7 @@ public class Main {
                         }else {
                             System.out.println("Sebze Eklenmiyor");
                         }
-}
+                    }
 
 
 
@@ -534,18 +534,22 @@ public class Main {
                                 }
 
                             });
-                        }
-                        int newbudget = 0;
-                        if (supplier2.getBudget()-(mf5.get().getPrice()*mf5.get().getWeight()) >0){
-                             newbudget = supplier2.getBudget()-(mf5.get().getPrice()*mf5.get().getWeight());
+                            int newbudget = 0;
+                            if (supplier2.getBudget()-(mf5.get().getPrice()*mf5.get().getWeight()) >0){
+                                newbudget = supplier2.getBudget()-(mf5.get().getPrice()*mf5.get().getWeight());
 
-                        int a = supplier2.getBudget();
-                        System.out.println("Name: " + supplier2.getName() + "New Budget: " + newbudget);
-                            store.fruitList.remove(mf5.get());
+                                int a = supplier2.getBudget();
+                                System.out.println("Name: " + supplier2.getName() + "New Budget: " + newbudget);
+                                store.fruitList.remove(mf5.get());
 
-                        }else {
-                            System.out.println("Alamazsiniz");
+                            }else {
+                                System.out.println("Alamazsiniz");
+
+
+                            }
                         }
+
+
 
 
                     });
@@ -555,7 +559,7 @@ public class Main {
                     storeList.forEach(store -> {
                         System.out.println(store.getName() + " " + store.getID() + " " +
                                 store.getMaxCapacityArea() +" " +store.getUsedCapacityArea() + " " + store.getKGperSquareMeter());
-                        });
+                    });
 
                     System.out.println("Select a store ");
                     Scanner storeID1 = new Scanner(System.in);
@@ -567,7 +571,7 @@ public class Main {
 
                     suppliersList.forEach(supplier -> {
                         supplier.cropList.forEach(crop1 -> {
-                            System.out.println("SupplierName: " +supplier.getName()+" " +" " + "Crop name: " +crop1.getName() + "ID: " + " " + crop1.getIDcropKeeper());
+                            System.out.println("SupplierName: " +supplier.getName()+" " +" " + "Crop name: " +crop1.getName()+ " " + "ID: " + " " + crop1.getIDcropKeeper());
                         });
                     });
 
@@ -589,24 +593,23 @@ public class Main {
 
                                 }
                             });
+
+                            int newCapacity;
+                            newCapacity = store11.getMaxCapacityArea()-((mf0.get().getWeight()*store11.getKGperSquareMeter()));
+                            System.out.println(store11.getName() + " " +newCapacity);
+
+                            int a;
+                            a=store11.getMaxCapacityArea();
+                            if (a-newCapacity>=0){
+                                supplier.cropList.remove(mf0.get());
+                            }else {
+                                System.out.println("Yeterli yeriniz yok.");
+                                return;
+                            }
                         }
-                        int newCapacity;
-                        newCapacity = store11.getMaxCapacityArea()-(store11.getUsedCapacityArea()+(mf0.get().getWeight()*store11.getKGperSquareMeter()));
-                        System.out.println(newCapacity);
-
-                        int a;
-                        a=store11.getMaxCapacityArea();
-                        if (a-newCapacity>=0){
-                            supplier.cropList.remove(mf0.get());
-                        }else {
-                            System.out.println("Yeterli yeriniz yok.");
-                        }
-
-
                     });
 
                     break;
-
 
                 case 0:
                     System.out.println("Quit");
